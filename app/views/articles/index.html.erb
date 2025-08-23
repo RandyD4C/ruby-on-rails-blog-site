@@ -1,5 +1,18 @@
 <h1>Articles</h1>
 
+<%# we use local: true to tell browser to do a regular GET request %>
+<%= form_with url: articles_path, method: :get, local: true do |form| %>
+  <div>
+    <%= form.label :query, "Search for Article's title or User's name" %>
+    <%= form.text_field :query, value: params[:query] %>
+  </div>
+
+  <div>
+    <%= form.submit "Search" %>
+    <%= link_to "Clear", articles_path %>
+  </div><br>
+<% end %>
+
 Our blog has <%= Article.public_count + Article.private_count %> articles and counting!
 
 <%# don't show archived articles in index page %>
