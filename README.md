@@ -1,24 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* The _requirement_1_ branch was created from the _main_ branch and serves as the base for __Requirement 1__.
 
-Things you may want to cover:
+* The _requirement_2_ branch was created from the _requirement_1_ branch and serves as the base for __Requirement 2__.
 
-* Ruby version
+* The _requirement_3_ branch was created from the _requirement_2_ branch and serves as the base for __Requirement 3__.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* The _requirement_4_ branch was created from the _requirement_3_ branch and serves as the base for __Requirement 4__.
