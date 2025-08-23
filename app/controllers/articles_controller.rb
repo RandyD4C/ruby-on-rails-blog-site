@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[ show edit update destroy ]
+  before_action :count_user, only: %i[ new edit ]
 
   def index
     # Instead of Article.all, we use Article.includes(:user) 
@@ -56,5 +57,9 @@ class ArticlesController < ApplicationController
 
     def set_article
       @article = Article.find(params[:id])
+    end
+
+    def count_user
+      @user_count = User.count
     end
 end
