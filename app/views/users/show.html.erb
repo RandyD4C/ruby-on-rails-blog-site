@@ -1,0 +1,19 @@
+<h1>User information</h1>
+
+<p>Name: <%= @user.name %></p>
+<p>Email: <%= @user.email %></p>
+<p>Date of birth: <%= @user.dob %></p>
+
+<ul>
+  <li><%= link_to "Edit", edit_user_path(@user) %></li>
+  <li><%= link_to "Destroy", user_path(@user), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></li>
+</ul>
+
+<h1>Articles</h1>
+<p>Total of <%= @user.articles.count %> articles created by <%= @user.name %>.</p>
+<%= render @articles %>
+<%= link_to "New article", new_article_path %>
+<%= link_to "Back", users_path %>

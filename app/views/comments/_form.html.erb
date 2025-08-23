@@ -1,11 +1,22 @@
 <%= form_with model: [ article, article.comments.build ] do |form| %>
   <p>
-    <%= form.label :commenter %><br>
-    <%= form.text_field :commenter %>
+    <%= form.label :user_id %><br>
+    <%# This is not the best idea of selecting a user using dropdown. I wanted to make a searchable dropdown %>
+    <%# and limit the result returned on the controller side to prevent performance issue when there are many users, %>
+    <%# but I'm facing issue on the importmap and wasn't able to achieve this using 3rd party library. %>
+    <%# Therefore, my solution as of now is using simple dropdown first due to time constraint, and I will %>
+    <%# try to solve the mentioned issue later. %>
+    <%= form.collection_select :user_id, User.all, :id, :name %>
+    <% article.errors.full_messages_for(:user_id).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
   </p>
   <p>
     <%= form.label :body %><br>
-    <%= form.text_area :body %>
+    <%= form.text_area :body, id: "comment_body.id" %>
+    <% article.errors.full_messages_for(:body).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
   </p>
   <p>
     <%= form.label :status %><br>
@@ -13,6 +24,6 @@
   </p>
 
   <p>
-    <%= form.submit %>
+    <%= form.submit "Submit", id: "comment_submit.id", disabled: true %>
   </p>
 <% end %>

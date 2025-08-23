@@ -1,0 +1,8 @@
+<%# article index page need to check archived, but user show page just show all article %>
+<% if local_assigns[:check_archived] ? !article.archived? : true %>
+    <ul>
+        <li>
+            <%= link_to article.title, article %>
+        </li>
+    </ul>
+<% end %>

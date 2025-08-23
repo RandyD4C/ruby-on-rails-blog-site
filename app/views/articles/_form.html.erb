@@ -1,27 +1,47 @@
-<%= form_with model: article do |form| %>
-  <div>
-    <%= form.label :title %><br>
-    <%= form.text_field :title %>
-    <% article.errors.full_messages_for(:title).each do |message| %>
-      <div><%= message %></div>
+<% if user_count == 0 %>
+    <h1>No user created yet</h1>
+    <p>Create your first user before posting an article.</p>
+    <%= link_to "Create User", new_user_path %> |
+<% else %>
+    <h1>New Article</h1>
+    <%= form_with model: article do |form| %>
+    <div>
+        <%= form.label :title %>
+        <%= form.text_field :title %>
+        <% article.errors.full_messages_for(:title).each do |message| %>
+        <div class="Error.cls"><%= message %></div>
+        <% end %>
+    </div><br>
+
+    <div>
+        <%= form.label :body %><br>
+        <%= form.text_area :body %><br>
+        <% article.errors.full_messages_for(:body).each do |message| %>
+        <div class="Error.cls"><%= message %></div>
+        <% end %>
+    </div><br>
+
+    <%# This is not the best way of selecting a user using dropdown. I wanted to make a searchable dropdown %>
+    <%# and limit the result returned on the controller side to prevent performance issue when there are many users, %>
+    <%# but I'm facing issue on the importmap and wasn't able to achieve this using 3rd party library. %>
+    <%# Therefore, my solution as of now is using simple dropdown first due to time constraint, and I will %>
+    <%# try to solve the mentioned issue later. %>
+    <div>
+        <%= form.label :user_id, "Author" %><br>
+        <%= form.collection_select :user_id, User.all, :id, :name %>
+        <% article.errors.full_messages_for(:user_id).each do |message| %>
+        <div class="Error.cls"><%= message %></div>
+        <% end %>
+    </div><br>
+
+    <div>
+    <%= form.label :status %><br>
+    <%= form.select :status, Visible::VALID_STATUSES, selected: article.status || 'public' %>
+    </div><br>
+
+
+    <div>
+        <%= form.submit %>
+    </div>
     <% end %>
-  </div>
-
-  <div>
-    <%= form.label :body %><br>
-    <%= form.text_area :body %><br>
-    <% article.errors.full_messages_for(:body).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
-
-  <div>
-  <%= form.label :status %><br>
-  <%= form.select :status, Visible::VALID_STATUSES, selected: article.status || 'public' %>
-</div>
-
-
-  <div>
-    <%= form.submit %>
-  </div>
 <% end %>

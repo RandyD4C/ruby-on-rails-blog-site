@@ -1,0 +1,27 @@
+<%= form_with model: user do |form| %>
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+    <% user.errors.full_messages_for(:name).each do |message| %>
+      <div class="Error.cls"><%= message %></div>
+    <% end %>
+  </div><br>
+  <div>
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+    <% user.errors.full_messages_for(:email).each do |message| %>
+      <div class="Error.cls"><%= message %></div>
+    <% end %>
+  </div><br>
+  <div>
+    <%= form.label :dob, "Date of Birth" %>
+    <%= form.date_field :dob %>
+    <% user.errors.full_messages_for(:dob).each do |message| %>
+      <div class="Error.cls"><%= message %></div>
+    <% end %>
+  </div><br>
+
+  <div>
+    <%= form.submit "OK" %>
+  </div>
+<% end %>
