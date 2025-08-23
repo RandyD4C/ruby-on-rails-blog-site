@@ -2,7 +2,17 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[ show edit update destroy ]
 
   def index
-    @articles = Article.all
+    # Instead of Article.all, we use Article.includes(:user) 
+    # to eager load users for each article to avoid N+1 queries
+    @articles = Article.includes(:user)
+
+    if params[:query].present?
+      search = "%#{params[:query]}%"
+      @articles = @articles.joins(:user)
+                          # Since SQLite3 doesn't support ILIKE, we use LIKE to perform case-insensitive search
+                          # for compatibility between SQLite3 and PostgreSQL
+                          .where("LOWER(articles.title) LIKE LOWER(?) OR LOWER(users.name) LIKE LOWER(?)", search, search)
+    end
   end
 
   def show
